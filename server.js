@@ -8,21 +8,27 @@ const noteData = [];
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static("public"));
 
 app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname, "/index.html"))
+    res.sendFile(path.join(__dirname, "/public/index.html"))
 });
 
 app.get("/notes", function (req, res) {
-    res.sendFile(path.join(__dirname, "/notes.html"))
+    res.sendFile(path.join(__dirname, "/public/notes.html"))
 });
 
 app.get("/api/notes", function (req, res) {
     res.json(noteData)
 });
 
-app.post("/notes", function (req, res) {
+app.post("/api/notes", function (req, res) {
+    let newNote = req.body;
+
+    noteData.push(newNote);
     console.log(req.body);
+
+    res.json(newNote)
 });
 
 
