@@ -5,7 +5,14 @@ const fs = require("fs");
 const app = express();
 const PORT = 3000;
 
-const noteData = [];
+let noteData = []
+
+let readStuff = fs.readFile("db/db.json", "utf8", (err, data) => {
+    console.log(err, data)
+    noteData = JSON.parse(data);
+});
+console.log("Check this out", readStuff);
+
 let nextId = 1;
 
 app.use(express.urlencoded({ extended: true }));
@@ -29,7 +36,12 @@ app.post("/api/notes", function (req, res) {
     newNote.id = nextId;
     noteData.push(newNote);
     nextId++;
-    
+
+    let newData = JSON.stringify(noteData);
+    fs.writeFile("db/db.json", newData, (err) => {
+        console.log(err);
+    });
+
     res.json(newNote)
 });
 
