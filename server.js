@@ -55,7 +55,8 @@ app.post("/api/notes", function (req, res) {
 app.delete("/api/notes/:id" , function(req, res) {
     console.log(req.params.id);
     let id = (req.params.id);
-    let deleteData = db.filter(element => element.id !== id);
+    console.log(id);
+    let deleteData = db.filter(element => element.id != id);
     console.log(deleteData)
 
     fs.writeFile("./db/db.json", JSON.stringify(deleteData), (err) => {
