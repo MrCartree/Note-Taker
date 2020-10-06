@@ -5,15 +5,18 @@ const fs = require("fs");
 const app = express();
 const PORT = 3000;
 
-let noteData = []
-
-let readStuff = fs.readFile("db/db.json", "utf8", (err, data) => {
-    console.log(err, data)
-    noteData = JSON.parse(data);
-});
-console.log("Check this out", readStuff);
+let noteData = [];
 
 let nextId = 1;
+
+fs.readFile("db/db.json", "utf8", (err, data) => {
+    console.log(err, data)
+    noteData = JSON.parse(data);
+    nextId = Math.max(...noteData.map(function (note) {
+        return note.id 
+    })) + 1;
+    console.log(nextId)
+});
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
