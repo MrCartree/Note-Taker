@@ -61,7 +61,7 @@ app.delete("/api/notes/:id" , function(req, res) {
 
     fs.writeFile("./db/db.json", JSON.stringify(deleteData), (err) => {
         if (err) throw err
-        Location.reload();
+        // Location.reload();
     });
     res.json(deleteData);
 });
