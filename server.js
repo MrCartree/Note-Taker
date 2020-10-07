@@ -57,12 +57,9 @@ app.delete("/api/notes/:id" , function(req, res) {
     let id = (req.params.id);
     console.log(id);
     let deleteData = db.filter(element => element.id != id);
-    console.log(deleteData)
+    console.log(deleteData);
 
-    fs.writeFile("./db/db.json", JSON.stringify(deleteData), (err) => {
-        if (err) throw err
-        // Location.reload();
-    });
+    fs.writeFileSync("./db/db.json", JSON.stringify(deleteData));
     res.json(deleteData);
 });
 
